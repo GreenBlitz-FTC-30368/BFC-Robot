@@ -7,48 +7,59 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Revolver {
     private DcMotorEx revolverMotor;
+    private static final double timeBetweenSamplesSec =0.1;
     private byte isFilled;
-    private int state;
+    private int currentSelectedIndex;
     private double positionDegrees;
+
+    private static final double defaultTolerance=5;
     public Revolver(DcMotorEx revolverMotor){
         this.revolverMotor =revolverMotor;
         isFilled = 0;
-        state = 0;
+        currentSelectedIndex = 0;
         revolverMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void rotate(double degrees, double tolerance){
-        double got = 0;
-        double timeBetweenSamples=0.1;
+        double reachedDegrees = 0;
         double signOfDifference;
-        while (Math.abs(got-degrees)<=tolerance){
-            signOfDifference = Math.signum(degrees-got);
-            got+=timeBetweenSamples*revolverMotor.getVelocity(AngleUnit.DEGREES)/60;
+        while (Math.abs(reachedDegrees -degrees)<=tolerance){
+            signOfDifference = Math.signum(degrees- reachedDegrees);
+            reachedDegrees += timeBetweenSamplesSec *revolverMotor.getVelocity(AngleUnit.DEGREES)/60;
             revolverMotor.setPower(-signOfDifference);
             try {
-                Thread.sleep((int) (timeBetweenSamples * 1000));
+                Thread.sleep((int) (timeBetweenSamplesSec * 1000));
             } catch (Exception _){}
         }
         revolverMotor.setPower(0);
-        positionDegrees+=got;
+        positionDegrees+= reachedDegrees;
     }
 
     public boolean rotateUntilEmpty(){
         for (int i=0; i<3; i++){
-            if ((1<<((state+i)%3)&isFilled)!=0){
-                rotate(120*((state+1)%3-1),5);
-                state = (state+i)%3;
+            if (isFilledAt(currentSelectedIndex+i)){
+                rotateBalls(i);
+                currentSelectedIndex = (currentSelectedIndex +i)%3;
                 return true;
             }
         }
         return false;
     }
 
+    public boolean isFilledAt(int index){
+        return ((1<<Math.floorMod(index,3))&isFilled) != 0;
+    }
+
+    public boolean isFilledAt(){
+        return isFilledAt(currentSelectedIndex);
+    }
+
     public void fillCurrent(){
-        isFilled= (byte) (isFilled|(1<<state));
+        isFilled= (byte) (isFilled|(1<< currentSelectedIndex));
     }
 
     public void rotateBalls(int balls){
-        rotate(balls*120,5);
+        rotate(balls*120,defaultTolerance);
+        currentSelectedIndex=(currentSelectedIndex+balls);
     }
 }
