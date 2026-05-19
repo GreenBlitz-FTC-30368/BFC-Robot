@@ -12,6 +12,8 @@ public class Revolver {
     private int currentSelectedIndex;
     private double positionDegrees;
 
+    private double aThirdOfATurnDeg = 120;
+
     private static final double defaultTolerance=5;
     public Revolver(DcMotorEx revolverMotor){
         this.revolverMotor =revolverMotor;
@@ -70,7 +72,7 @@ public class Revolver {
     }
 
     public void rotateBalls(int numOfBalls){
-        rotate(numOfBalls *120,defaultTolerance);
+        rotate(numOfBalls *aThirdOfATurnDeg,defaultTolerance);
         currentSelectedIndex=(currentSelectedIndex+ numOfBalls);
     }
 }
