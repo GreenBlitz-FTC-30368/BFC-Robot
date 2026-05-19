@@ -12,5 +12,4 @@ public class RobotConstants {
     public static final double distanceToShootCm = 120;
     public static final double tileSizeCm = 60.96;
     public static final double diagonalDriftAtMaxVelocityCm = 0; //on school floor, need to configure on arena
-    //public static final double revolverMotorSpeedRPM=2090;
 }
