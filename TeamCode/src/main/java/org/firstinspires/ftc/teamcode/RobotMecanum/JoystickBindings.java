@@ -16,9 +16,9 @@ public class JoystickBindings {
         robot.getMecanum().drive(gamepad1);
 
         if (gamepad1.right_trigger > 0.5) {
-            robot.getRail().go();
+            robot.getSpoon().moveUp();
         } else {
-            robot.getRail().stop();
+            robot.getSpoon().moveDown();
         }
 
         if (gamepad1.b) {
