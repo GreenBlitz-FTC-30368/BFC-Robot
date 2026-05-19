@@ -13,7 +13,7 @@
 
 // Include common definitions from above.
 plugins {
-    id("com.diffplug.spotless") version "8.5.1"
+    id("com.diffplug.spotless") version "8.4.0"
 }
 
 apply from: '../build.common.gradle'
