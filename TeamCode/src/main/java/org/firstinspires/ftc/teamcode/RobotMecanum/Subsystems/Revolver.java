@@ -37,6 +37,17 @@ public class Revolver {
 
     public boolean rotateUntilEmpty(){
         for (int i=0; i<3; i++){
+            if (!isFilledAt(currentSelectedIndex+i)){
+                rotateBalls(i);
+                currentSelectedIndex = (currentSelectedIndex +i)%3;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean rotateUntilFull(){
+        for (int i=0; i<3; i++){
             if (isFilledAt(currentSelectedIndex+i)){
                 rotateBalls(i);
                 currentSelectedIndex = (currentSelectedIndex +i)%3;
@@ -58,8 +69,8 @@ public class Revolver {
         isFilled= (byte) (isFilled|(1<< currentSelectedIndex));
     }
 
-    public void rotateBalls(int balls){
-        rotate(balls*120,defaultTolerance);
-        currentSelectedIndex=(currentSelectedIndex+balls);
+    public void rotateBalls(int numOfBalls){
+        rotate(numOfBalls *120,defaultTolerance);
+        currentSelectedIndex=(currentSelectedIndex+ numOfBalls);
     }
 }
