@@ -57,11 +57,7 @@ public class JoystickBindings {
             robot.getIntake().stop();
         }
 
-        if (gamepad1.dpad_down) {
-            robot.getHood().moveBackwards();
-        } else if (gamepad1.dpad_up) {
-            robot.getHood().moveForwards();
-        }
+
         if (gamepad1.a){
             for (int i = 0; i < 3; i++) {
                 robot.getRail().go();
