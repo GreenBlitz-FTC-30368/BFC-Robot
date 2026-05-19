@@ -5,11 +5,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.RobotMecanum.Subsystems.Flywheel;
-import org.firstinspires.ftc.teamcode.RobotMecanum.Subsystems.Hood;
 import org.firstinspires.ftc.teamcode.RobotMecanum.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.RobotMecanum.Subsystems.Mecanum;
 import org.firstinspires.ftc.teamcode.RobotMecanum.Subsystems.Rail;
@@ -20,7 +18,6 @@ public class RobotMecanum {
     private final Mecanum mecanum;
     private final IMU imu;
     private final Intake intake;
-    private final Hood hood;
 
     public Intake getIntake() {
         return intake;
@@ -38,7 +35,6 @@ public class RobotMecanum {
         this.mecanum = new Mecanum(hardwareMap); //TODO: name calibration
         this.imu = hardwareMap.get(IMU.class,"imu");
         this.intake = new Intake(hardwareMap.get(DcMotor.class, "intakeMotor"));
-        this.hood = new Hood(hardwareMap.get(Servo.class, "hoodServo"));
         imu.initialize(new IMU.Parameters(
                 new RevHubOrientationOnRobot(
                         RevHubOrientationOnRobot.LogoFacingDirection.LEFT, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
@@ -57,9 +53,6 @@ public class RobotMecanum {
 
     public Mecanum getMecanum() {
         return mecanum;
-    }
-    public Hood getHood() {
-        return hood;
     }
     public IMU getImu(){
         return imu;
