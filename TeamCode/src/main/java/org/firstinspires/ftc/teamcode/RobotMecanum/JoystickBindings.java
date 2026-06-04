@@ -8,8 +8,10 @@ import org.firstinspires.ftc.teamcode.RobotMecanum.Subsystems.Flywheel;
 
 public class JoystickBindings {
     public final Gamepad gamepad1;
-    public JoystickBindings(Gamepad gamepad1) {
+    public final Gamepad gamepad2;
+    public JoystickBindings(Gamepad gamepad1, Gamepad gamepad2) {
         this.gamepad1 = gamepad1;
+        this.gamepad2 = gamepad2;
     }
 
     public void mainJoystickButtons(RobotMecanum robot) {
@@ -50,7 +52,6 @@ public class JoystickBindings {
 //        } else {
 //            robot.getMecanum().velocityModifier = 1;
 //        }
-
         if (gamepad1.left_trigger > 0.5) {
             robot.getIntake().spin();
         } else {
